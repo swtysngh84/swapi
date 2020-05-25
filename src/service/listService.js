@@ -13,3 +13,10 @@ export function getAllMovie(params){
             }
     });
 }
+
+export function getSingleUser(id){
+    return baseService.get(`/people/${id}`);
+}
+export function getSingleMovie(id){
+    return baseService.get(`/films/${id}`);
+}

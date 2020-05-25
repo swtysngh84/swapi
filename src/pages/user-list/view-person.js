@@ -22,17 +22,21 @@ const styles=theme=> ({
 
 class PersonDetails extends  React.Component{
     componentDidMount(){
-        if(!this.props.person.length)
-       this.props.action.getAllUserAction({limit:10,offset:0})
+      var matches = this.props.history.location.pathname.match(/(\d+)/);
+       this.props.action.getSingleUserAction(matches[0])
     }
-    
+    onClick=(id)=>{
+      // this.props.action.saveCurrentView(this.props.person.films[id])
+      const url=this.props.currentView.films[id]
+      var matches = url.match(/(\d+)/);
+      this.props.history.push(`/movie/${matches[0]}`)
+  }
 render(){
-  var matches = this.props.history.location.pathname.match(/(\d+)/);
-    const record=this.props.person[matches[0]]
-    const {classes}=this.props
-    const rows=record ? record.films.length && record.films.map((listF)=>{
+    const {classes,currentView}=this.props
+    const record=currentView
+    const rows=currentView && currentView.films ? currentView.films.map((listF)=>{
       return{list:listF}
-    }):[]
+    }):[{}]
     return(
       <div className={classes.root}>
       <Grid container spacing={1} className={classes.grid}>
@@ -62,7 +66,7 @@ render(){
         </Grid>
         </Grid>
     </Grid>
-    <List header={['Flims List']} rows={rows} noPagination={true}/>
+    <List header={['Flims List']} rows={rows} noPagination={true} onClick={this.onClick}/>
     </div>
         
     )
@@ -71,8 +75,7 @@ render(){
 
 const mapStateToProps=state=>{
     return {
-    person:state.list.people,
-    count:state.list.count
+    currentView:state.list.currentView
 }}
 const mapDispatchToProps=dispatch=>({
     action:bindActionCreators(ListAction,dispatch)

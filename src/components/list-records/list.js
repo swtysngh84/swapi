@@ -25,12 +25,16 @@ const useStyles = makeStyles((theme) => ({
 
 const  List =(props)=>{
   const classes = useStyles();
-    const{rows,header,count,noPagination}=props;
-    const [page, setPage] = React.useState(1);
+  const{rows,header,count,noPagination}=props;
+  const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value);
     props.onPageChange()
   };
+  var start =  parseInt((page - 1) * 10);
+  var end = parseInt(page * 10);
+  var list=[...rows]
+  list.slice(start, end);
   return(
     <><TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -43,9 +47,9 @@ const  List =(props)=>{
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row,index) => {
+          {list.map((row,index) => {
             const column=Object.keys(row);
-            return <TableRow key={row.name} onClick={()=>props.onClick(index)}>{
+            return <TableRow key={row.name} onClick={()=>props.onClick && props.onClick(index)}>{
               column.map((list,index)=>(
                   <TableCell>{row[list]}</TableCell>
             ))

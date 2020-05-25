@@ -22,6 +22,7 @@ import { useHistory,Route,Switch } from "react-router-dom";
 import UserList from "../../pages/user-list/user-list"
 import FilmList from "../../pages/film-list/file"
 import PersonDetails from "../../pages/user-list/view-person"
+import FilmDetails from "../../pages/film-list/view-flim"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -182,7 +183,8 @@ const  Header=(props)=> {
         <Switch>
         <Route exact path="/" render={() => <UserList history={history}/> } />
         <Route exact path="/user/:id" render={() => <PersonDetails history={history}/> } />
-        <Route path={"/movie"} exact render={()=><FilmList />}  />
+        <Route path={"/movie"} exact render={()=><FilmList history={history}/>}  />
+        <Route path={"/movie/:id"} exact render={()=><FilmDetails history={history}/>}  />
         </Switch>
       </main>
     </div>

@@ -10,10 +10,15 @@ class UserList extends  React.Component{
         this.props.action.getAllUserAction({limit:10,offset:0})
     }
     onPageChange=()=>
-    {       this.props.action.getAllUserAction({limit:10,offset:this.props.person.length-10})
+    {   
+        this.props.action.getAllUserAction({limit:10,offset:this.props.person.length+10})
     }
     onClick=(id)=>{
-        this.props.history.push(`/user/${id}`)
+        this.props.action.saveCurrentView(this.props.person[id])
+        const {url}=this.props.person[id]
+        debugger
+        var matches = url.match(/(\d+)/);
+        this.props.history.push(`/user/${matches[0]}`)
     }
 render(){
     const header=['Name','Gender','Eye color','Birth year','Home World','Height','Skin color']

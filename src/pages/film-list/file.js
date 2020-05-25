@@ -6,10 +6,17 @@ import { connect } from 'react-redux'
 
 class FilmList extends  React.Component{
     componentDidMount(){
-this.props.action.getAllMovieAction({limit:10,offset:0})
+        this.props.action.getAllMovieAction({limit:10,offset:0})
     }
     onPageChange()
-    {       this.props.action.getAllMovieAction({limit:10,offset:this.props.movie.length-10})
+    {       this.props.action.getAllMovieAction({limit:10,offset:this.props.movie.length+10})
+    }
+    onClick=(id)=>{
+        this.props.action.saveCurrentView(this.props.movie[id])
+        const {url}=this.props.movie[id]
+        debugger
+        var matches = url.match(/(\d+)/);
+        this.props.history.push(`/movie/${matches[0]}`)
     }
 render(){
     const header=['Title','Url','Producer','Director','Relase Date']
@@ -19,7 +26,7 @@ render(){
     })
     
     return(
-        <List header={header} rows={row} count={this.props.count} onPageChange={this.onPageChange}/>
+        <List header={header} rows={row} count={this.props.count} onPageChange={this.onPageChange} onClick={this.onClick}/>
     )
 }
 }
