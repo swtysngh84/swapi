@@ -3,7 +3,6 @@ export const getAllUserAction=(params)=>{
     return (dispatch)=>{
         service.getAllUser(params)
         .then((response)=>{
-            debugger
             if(response.status===200){     
                dispatch({
                    type:'FETCH_PEOPLE',

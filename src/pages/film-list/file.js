@@ -13,7 +13,6 @@ this.props.action.getAllMovieAction({limit:10,offset:0})
     }
 render(){
     const header=['Title','Url','Producer','Director','Relase Date']
-    debugger
     const row=[]
     this.props.movie && this.props.movie.map((data)=>{
         row.push({name:data.title,url:data.url,'producer':data.producer,director:data.director,'release_date':data.release_date})

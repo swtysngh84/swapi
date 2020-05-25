@@ -29,7 +29,6 @@ class PersonDetails extends  React.Component{
 render(){
   var matches = this.props.history.location.pathname.match(/(\d+)/);
     const record=this.props.person[matches[0]]
-    debugger
     const {classes}=this.props
     const rows=record ? record.films.length && record.films.map((listF)=>{
       return{list:listF}
